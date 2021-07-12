@@ -1,7 +1,7 @@
 
 # Weather-app
 
-A weather app using an API and React js.
+A weather app using an API and React js.This is a challenge from devchallenges.io
 
 
 
