@@ -6,40 +6,19 @@ import axios from "axios";
 interface elemnt {
   units: string;
   contryId: any;
+  diferentWeather: string;
 }
 
-const NextDays: FC<elemnt> = ({ units, contryId }) => {
+const NextDays: FC<elemnt> = ({ units, contryId, diferentWeather }) => {
   const [data, setData] = useState<any>([]);
-
-  const diferentWeather: any = {
-    "01d": "day_clear",
-    "02d": "day_partial_cloud",
-    "03d": "cloudy",
-    "04d": "broken_clouds",
-    "09d": "rain",
-    "10d": "day_rain",
-    "11d": "thunder",
-    "13d": "snow",
-    "50d": "mist",
-    "01n": "night_clear",
-    "02n": "night_partial_cloud",
-    "03n": "night_partial_cloud",
-    "04n": "night_partial_cloud",
-    "09n": "rain",
-    "10n": "night_rain",
-    "11n": "thunner",
-    "13n": "snow",
-    "50n": "mist",
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       contryId === undefined
         ? " "
         : await axios(
-            `http://api.openweathermap.org/data/2.5/forecast?id=${contryId}&appid=${
+            `https://api.openweathermap.org/data/2.5/forecast?id=${contryId}&units=${units}&appid=${
               import.meta.env.VITE_APP_REACT_APP_API_KEY
-            }&units=${units}`
+            }`
           )
             .then((result) => {
               const dailyData = result.data.list.filter((reading: any) =>
@@ -56,15 +35,18 @@ const NextDays: FC<elemnt> = ({ units, contryId }) => {
     };
 
     fetchData();
-  }, [contryId]);
-
+  }, [contryId, units]);
 
   const formatDayCards = () => {
     return data.dailyData.map((reading: any, index: any) => (
-      <DayCard reading={reading} key={index}  diferentWeather={diferentWeather } units={units}/>
+      <DayCard
+        reading={reading}
+        key={index}
+        diferentWeather={diferentWeather}
+        units={units}
+      />
     ));
   };
-
   return (
     <>
       {data.length <= 0 ? (

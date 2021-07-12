@@ -1,6 +1,5 @@
 import React, { useState, useEffect, FC } from "react";
-
-// import SearchButton from "./SearchButton";
+import Settings from "./Settings";
 
 import moment from "moment";
 
@@ -11,9 +10,20 @@ interface elemnt {
   icon: string;
   temp: number;
   country: string;
+  setMetric: string;
+  diferentWeather: string;
 }
 
-const Weather: FC<any> = ({ data, units, sidebar, setSidebar }) => {
+const Weather: FC<any> = ({
+  data,
+  units,
+  sidebar,
+  setSidebar,
+  setMetric,
+  setIsCLose,
+  isCLose,
+  diferentWeather,
+}) => {
   // states
   const [myWeatherState, setMyWeatherState] = useState<string>("01d");
   const [weatherDescription, setWeatherDescription] =
@@ -24,7 +34,7 @@ const Weather: FC<any> = ({ data, units, sidebar, setSidebar }) => {
   // effects
   useEffect(() => {
     typeof data.weather === "undefined"
-      ? console.log("Cargado")
+      ? " "
       : data.weather.map((el: elemnt) => {
           setMyWeatherState(el.icon);
           setWeatherDescription(el.description);
@@ -34,35 +44,24 @@ const Weather: FC<any> = ({ data, units, sidebar, setSidebar }) => {
         });
 
     typeof data.weather === "undefined" || typeof data.weather === "undefined"
-      ? console.log("Cargado")
+      ? " "
       : setDegrees(data.main.temp);
   });
 
-  const diferentWeather: any = {
-    "01d": "day_clear",
-    "02d": "day_partial_cloud",
-    "03d": "cloudy",
-    "04d": "broken_clouds",
-    "09d": "rain",
-    "10d": "day_rain",
-    "11d": "thunder",
-    "13d": "snow",
-    "50d": "mist",
-    "01n": "night_clear",
-    "02n": "night_partial_cloud",
-    "03n": "night_partial_cloud",
-    "04n": "night_partial_cloud",
-    "09n": "rain",
-    "10n": "night_rain",
-    "11n": "thunner",
-    "13n": "snow",
-    "50n": "mist",
-  };
-
   let actualWeather = diferentWeather[myWeatherState];
+
+  const getSrc = (actualWeather: any) => {
+    const path = `../images/${actualWeather}.png`;
+    const modules = import.meta.globEager("../images/*.png");
+    return modules[path].default;
+  };
 
   const handleToggle = () => {
     setSidebar(!sidebar);
+  };
+
+  const handleToggleSettings = () => {
+    setIsCLose(true);
   };
 
   return (
@@ -71,13 +70,20 @@ const Weather: FC<any> = ({ data, units, sidebar, setSidebar }) => {
         <span onClick={handleToggle} className="btn-search">
           Search for places
         </span>
+        <Settings
+          setMetric={setMetric}
+          units={units}
+          isCLose={isCLose}
+          setIsCLose={setIsCLose}
+        />
       </div>
-      <div className="weather-info">
-        <img src={`../images/${actualWeather}.png`} alt="weather icons" />
+      <div onClick={handleToggleSettings} className="weather-info">
+        <img src={getSrc(actualWeather)} alt="weather icons" />
 
         <ul>
           <li className="weather-degrees">
-            {degrees} {units === "metric" ? <p> ºC </p> : <p> ºF</p>}
+            {Math.floor(degrees)}{" "}
+            {units === "metric" ? <p> ºC </p> : <p> ºF</p>}
           </li>
           <li>{weatherDescription}</li>
           <li> {moment().format("LLLL")}</li>

@@ -1,20 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 
 .App {
-  @apply w-full md:grid-cols-2 md:flex;
+  @apply w-full lg:grid-cols-2 lg:flex;
+}
+.weather-info-header {
+  @apply flex flex-row items-center justify-between m-4 lg:m-8 lg:pb-8;
 }
 
 .weather-info-container {
-  @apply flex flex-col h-screen bg-top bg-no-repeat md:w-96 justify-evenly bg-dark-blue bg-cloud-background bg-blend-overlay;
+  @apply flex flex-col h-screen bg-top bg-no-repeat lg:w-96 justify-evenly bg-dark-blue bg-cloud-background bg-blend-overlay;
 }
 .weather-info-container img {
   @apply w-52 h-52;
 }
 
 .weather-info {
-  @apply flex flex-col items-center justify-between text-center h-4/5;
+  @apply flex flex-col items-center justify-between text-center h-4/5 md:h-4/6 lg:h-3/4 lg:m-12;
 }
 .weather-info li {
   @apply mb-6 text-text-color;
@@ -31,14 +37,14 @@
 }
 
 .btn-search {
-  @apply p-2 ml-5 shadow bg-btn-color text-degreess-color hover:bg-light-grey;
+  @apply p-2 shadow-2xl bg-btn-color text-degreess-color hover:bg-light-grey;
 }
 
 .search-container {
-  @apply absolute flex flex-col w-full h-screen p-5 transition duration-500 ease-in md:w-96 bg-dark-blue text-degreess-color;
+  @apply absolute z-50 flex flex-col w-full h-screen p-5 transition duration-500 ease-in lg:w-96 bg-dark-blue text-degreess-color;
 }
 .search-container-close {
-  @apply absolute inset-y-0 left-0 flex flex-col w-full h-screen p-5 transition duration-500 ease-in -translate-x-full md:w-96;
+  @apply absolute inset-y-0 left-0 flex flex-col w-full h-screen p-5 transition duration-500 ease-in -translate-x-full lg:w-96;
 }
 .search-container span,
 .search-container-close span {
@@ -55,22 +61,22 @@
 }
 
 .list-city {
-  @apply p-4 mt-3 border-2 bg-dark-blue border-degreess-color border-opacity-40;
+  @apply p-4 mt-3 border-2 cursor-default bg-dark-blue border-degreess-color border-opacity-40 hover:bg-gray-400;
 }
 
 .sideright-container {
-  @apply bg-side-right md:w-full md:flex md:flex-col md:justify-evenly md:items-center;
+  @apply bg-side-right lg:w-full lg:flex lg:flex-col lg:justify-evenly lg:items-center;
 }
 
 .days-main-container {
-  @apply grid grid-cols-2 gap-8 p-5 justify-items-center pt-7 md:flex md:justify-evenly;
+  @apply grid grid-cols-2 gap-8 p-5 justify-items-center pt-7 lg:flex lg:justify-evenly md:grid-cols-3;
 }
 .days-container {
-  @apply flex flex-col items-center h-48 text-sm border-2 md:h-36 md:w-28 w-36 text-degreess-color border-text-color bg-dark-blue;
+  @apply flex flex-col items-center h-48 text-sm border-2 lg:h-36 lg:w-32 w-36 text-degreess-color border-text-color bg-dark-blue;
 }
 
 .days-container img {
-  @apply h-24 mt-1 md:h-12;
+  @apply h-24 mt-1 lg:h-12;
 }
 
 .temp {
@@ -78,10 +84,10 @@
 }
 
 .Hightlights-container {
-  @apply grid text-degreess-color md:grid-cols-2 md:gap-5 md:p-10 md:w-4/6;
+  @apply grid text-degreess-color lg:grid-cols-2 lg:gap-5 lg:w-4/6 md:grid-cols-2;
 }
 .Hightlights-container h1 {
-  @apply p-4 mb-2 text-lg md:col-span-2;
+  @apply p-4 mb-2 text-lg lg:col-span-2 md:col-span-2;
 }
 .Hightlights-container div {
   @apply flex flex-col items-center justify-center h-40 mb-5 border-2 w-72 border-text-color justify-self-center bg-dark-blue;
@@ -90,7 +96,7 @@
   @apply flex mt-5 mb-5 text-5xl;
 }
 
-.simbol  {
+.simbol {
   @apply flex mt-5 ml-2 text-sm;
 }
 
@@ -99,13 +105,48 @@
 }
 
 progress[value]::-webkit-progress-value {
-  @apply h-2 bg-yellow-200 rounded-md;
+  @apply h-2 bg-yellow-200 rounded-lg;
 }
 
 ::-webkit-progress-bar {
-  @apply h-2 bg-gray-100 border-2 rounded-md;
+  @apply h-2 bg-gray-100 border-2 rounded-lg;
 }
 
-.footer{
-  @apply flex items-center justify-center h-8 border-2 border-gray-700 bg-dark-blue text-gray-50;
+.footer {
+  @apply flex items-center justify-center h-8 text-gray-50;
+}
+
+.box-settings {
+  @apply absolute flex;
+}
+.dropdown-content {
+  @apply absolute flex flex-col items-center h-20 mt-2 transition-all duration-500 ease-out;
+}
+.dropdown-content-hiden {
+  @apply absolute flex flex-col items-center invisible h-20 transition-all duration-300 ease-out -translate-y-8;
+}
+.dropdown-content button {
+  @apply w-8 h-8 mb-2 rounded-full shadow-myBoxSh bg-btn-color;
+}
+.dropdown-content-hiden button {
+  @apply absolute invisible select-none;
+}
+
+.btn-refresh {
+  @apply w-8 h-8;
+}
+.dropdown {
+  @apply mb-4;
+}
+
+.btn-degrees {
+  @apply font-bold text-degreess-color;
+}
+
+img {
+  @apply animate-wiggle;
+}
+
+.close-tab {
+  @apply cursor-pointer;
 }

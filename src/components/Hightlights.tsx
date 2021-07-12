@@ -13,12 +13,10 @@ const Hightlights: FC<elemnt> = ({ data, units }) => {
 
   useEffect(() => {
     const setData = async () => {
-      data === undefined
-        ? console.log("Cargado")
-        : setFeelsLike(data.main.feels_like),
-        setWind(data.wind.speed),
+      data === undefined ? console.log("Cargado") : setWind(data.wind.speed),
         setHumidity(data.main.humidity),
-        setPressure(data.main.pressure);
+        setPressure(data.main.pressure),
+        setFeelsLike(data.main.feels_like);
     };
     setData();
   }, [data]);
@@ -30,13 +28,14 @@ const Hightlights: FC<elemnt> = ({ data, units }) => {
         <div>
           Feels Like{" "}
           <span>
-            {feelsLike} {units === "metric" ? <p> ºC </p> : <p> ºF</p>}{" "}
+            {Math.floor(feelsLike)}{" "}
+            {units === "metric" ? <p> ºC </p> : <p> ºF</p>}{" "}
           </span>
         </div>
         <div>
           Wind status{" "}
           <span>
-            {wind}{" "}
+            {Math.floor(wind)}{" "}
             {units === "metric" ? (
               <p className="simbol"> Meter/Sec </p>
             ) : (

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, FC } from "react";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import axios from "axios";
 
 interface elemnt {
@@ -8,7 +9,6 @@ interface elemnt {
 }
 
 const SearchButton: FC<any> = ({
-  data,
   setData,
   units,
   sidebar,
@@ -23,7 +23,7 @@ const SearchButton: FC<any> = ({
       countryName.length < 3
         ? "cargando"
         : await axios(
-            `http://api.openweathermap.org/data/2.5/find?q=${countryName}&appid=${
+            `https://api.openweathermap.org/data/2.5/find?q=${countryName}&appid=${
               import.meta.env.VITE_APP_REACT_APP_API_KEY
             }&units=${units}`
           )
@@ -53,8 +53,12 @@ const SearchButton: FC<any> = ({
           sidebar == true ? "search-container-close" : "search-container"
         }
       >
-        <span onClick={handleToggle}>X</span>
+        <span className="close-tab" onClick={handleToggle}>
+          <HighlightOffIcon></HighlightOffIcon>
+        </span>
+
         <label htmlFor="Search city">Search City </label>
+
         <input
           onChange={(e) => handleSearch(e)}
           value={countryName}

@@ -4,6 +4,15 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      keyframes: {
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+      },
+      animation: {
+        wiggle: "wiggle 1.5s ease-in-out infinite",
+      },
       backgroundImage: (theme) => ({
         "cloud-background": "url('/src/images/Cloud-background.png')",
       }),
@@ -18,6 +27,9 @@ module.exports = {
       },
       zIndex: {
         "-1": -1,
+      },
+      boxShadow: {
+        myBoxSh: "0px 8.5px 13px 2px rgb(20 19 34 / 75%)",
       },
     },
   },
